@@ -121,8 +121,12 @@ if (isset($_POST['sub'])) {
       if ($json_result["status"] == "success") {
         $monUrl = $json_result["download_url"];
         echo '
-          <a href='.$monUrl.'> Télécharger la facture </a>
-        ';
+    <h2 style="text-align: center;">Bravo, votre Facture est prête !</h2>
+    <div style="text-align: center; margin-top: 20px;">
+        <a href='.$monUrl.' style="padding: 10px 20px; background-color: #007bff; color: #fff; text-decoration: none; border-radius: 5px;"> Télécharger </a>
+    </div>
+';
+
       } else {
         return null;
       }
