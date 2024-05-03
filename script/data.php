@@ -40,7 +40,8 @@ if (isset($_POST['sub'])) {
   $data['total_general'] = $totalGeneral;
 
   // convert total number value in letter in letter
-  function nombreEnLettres($nombre) {
+  function nombreEnLettres($nombre)
+  {
     $unites = array('', 'un', 'deux', 'trois', 'quatre', 'cinq', 'six', 'sept', 'huit', 'neuf');
     $dizaines = array('', 'dix', 'vingt', 'trente', 'quarante', 'cinquante', 'soixante', 'soixante-dix', 'quatre-vingt', 'quatre-vingt-dix');
     $centaines = array('', 'cent', 'deux-cents', 'trois-cents', 'quatre-cents', 'cinq-cents', 'six-cents', 'sept-cents', 'huit-cents', 'neuf-cents');
@@ -56,47 +57,47 @@ if (isset($_POST['sub'])) {
 
     // Gérer les milliers
     if ($milliers > 0) {
-        $resultat .= nombreEnLettres($milliers) . ' mille ';
+      $resultat .= nombreEnLettres($milliers) . ' mille ';
     }
 
     // Gérer les centaines
     if ($centaines_part > 0) {
-        $resultat .= $centaines[$centaines_part] . ' ';
+      $resultat .= $centaines[$centaines_part] . ' ';
     }
 
     // Gérer les dizaines et les unités
     if ($dizaines_part > 1) {
-        $resultat .= $dizaines[$dizaines_part] . ' ';
-        if ($unites_part > 0) {
-            $resultat .= $unites[$unites_part] . ' ';
-        }
-    } elseif ($dizaines_part == 1) {
-        if ($unites_part == 0) {
-            $resultat .= 'dix ';
-        } elseif ($unites_part == 1) {
-            $resultat .= 'onze ';
-        } elseif ($unites_part == 2) {
-            $resultat .= 'douze ';
-        } elseif ($unites_part == 3) {
-            $resultat .= 'treize ';
-        } elseif ($unites_part == 4) {
-            $resultat .= 'quatorze ';
-        } elseif ($unites_part == 5) {
-            $resultat .= 'quinze ';
-        } elseif ($unites_part == 6) {
-            $resultat .= 'seize ';
-        } else {
-            $resultat .= $dizaines[1] . ' ' . $unites[$unites_part] . ' ';
-        }
-    } elseif ($unites_part > 0) {
+      $resultat .= $dizaines[$dizaines_part] . ' ';
+      if ($unites_part > 0) {
         $resultat .= $unites[$unites_part] . ' ';
+      }
+    } elseif ($dizaines_part == 1) {
+      if ($unites_part == 0) {
+        $resultat .= 'dix ';
+      } elseif ($unites_part == 1) {
+        $resultat .= 'onze ';
+      } elseif ($unites_part == 2) {
+        $resultat .= 'douze ';
+      } elseif ($unites_part == 3) {
+        $resultat .= 'treize ';
+      } elseif ($unites_part == 4) {
+        $resultat .= 'quatorze ';
+      } elseif ($unites_part == 5) {
+        $resultat .= 'quinze ';
+      } elseif ($unites_part == 6) {
+        $resultat .= 'seize ';
+      } else {
+        $resultat .= $dizaines[1] . ' ' . $unites[$unites_part] . ' ';
+      }
+    } elseif ($unites_part > 0) {
+      $resultat .= $unites[$unites_part] . ' ';
     }
 
     return $resultat;
-}
+  }
 
- 
-  $totalInletter =  nombreEnLettres($totalGeneral);
+
+  $totalInletter = nombreEnLettres($totalGeneral);
   $data['totalinletter'] = $totalInletter;
   // Encode data to JSON string
   $json_data = json_encode($data, JSON_PRETTY_PRINT);
@@ -121,12 +122,11 @@ if (isset($_POST['sub'])) {
       if ($json_result["status"] == "success") {
         $monUrl = $json_result["download_url"];
         echo '
-    <h2 style="text-align: center;">Bravo, votre Facture est prête !</h2>
-    <div style="text-align: center; margin-top: 20px;">
-        <a href='.$monUrl.' style="padding: 10px 20px; background-color: #007bff; color: #fff; text-decoration: none; border-radius: 5px;"> Télécharger </a>
-    </div>
-';
-
+            <h2 style="text-align: center;">Bravo, votre Facture est prête !</h2>
+            <div style="text-align: center; margin-top: 20px;">
+                <a href=' . $monUrl . ' style="padding: 10px 20px; background-color: #007bff; color: #fff; text-decoration: none; border-radius: 5px;"> Télécharger </a>
+            </div>
+            ';
       } else {
         return null;
       }
